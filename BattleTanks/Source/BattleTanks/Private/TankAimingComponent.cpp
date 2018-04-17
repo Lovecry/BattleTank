@@ -63,7 +63,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float launchSpeed)
 	auto Time = GetWorld()->GetTimeSeconds();
 	if (bHaveAimSolution)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%f : Barrel Elevating"), Time);
+		//UE_LOG(LogTemp, Warning, TEXT("%f : Barrel Elevating"), Time);
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}

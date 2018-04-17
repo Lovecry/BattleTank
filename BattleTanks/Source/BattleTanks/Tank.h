@@ -3,13 +3,13 @@
 #pragma once
 
 #include "Public/TankAimingComponent.h"
+#include "Public/Projectile.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
 class UTankBarrel;
 class UTankTurret;
-
 
 UCLASS()
 class BATTLETANKS_API ATank : public APawn
@@ -28,6 +28,9 @@ public:
 
 	void AimAt(FVector HitLocation);
 
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
+
 protected:
 	UTankAimingComponent * TankAimingComponent = nullptr;
 
@@ -38,4 +41,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 4000.0f;
+
+	UPROPERTY(EditAnywhere, Category = Setup)
+		TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UTankBarrel* Barrel;
 };
