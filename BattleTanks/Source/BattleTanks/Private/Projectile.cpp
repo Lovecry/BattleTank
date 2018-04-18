@@ -27,12 +27,15 @@ void AProjectile::BeginPlay()
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AProjectile::LaunchProjectile(float speed)
 {
-	ProjectileMovementComponent->bAutoActivate = true;
-	ProjectileMovementComponent->SetVelocityInLocalSpace(FVector::ForwardVector * speed);
+	FVector velocity = FVector::ForwardVector * speed;
+	if (ProjectileMovementComponent)
+	{
+		ProjectileMovementComponent->SetVelocityInLocalSpace(velocity);
+		ProjectileMovementComponent->Activate();
+	}
 }
 
