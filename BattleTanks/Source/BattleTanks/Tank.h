@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Public/TankAimingComponent.h"
+#include "Public/TankMovementComponent.h"
 #include "Public/Projectile.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
@@ -32,7 +33,10 @@ public:
 	void Fire();
 
 protected:
-	UTankAimingComponent * TankAimingComponent = nullptr;
+	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:	
 	virtual void BeginPlay() override;
