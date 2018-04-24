@@ -16,6 +16,14 @@ class BATTLETANKS_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+protected :
+
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank * GetControlledTank() const;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+		
 private:
 
 	UPROPERTY(EditDefaultsOnly)
@@ -24,8 +32,6 @@ private:
 		float CrossHairYLocation = 0.33333f;
 	UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000.f;
-
-	ATank * GetControlledTank() const;
 	
 	void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
