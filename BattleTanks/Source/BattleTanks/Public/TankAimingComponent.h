@@ -4,6 +4,8 @@
 
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
+
 #include "Kismet/GameplayStatics.h"
 #include "Engine.h"
 #include "CoreMinimal.h"
@@ -35,16 +37,32 @@ public:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void AimAt(FVector, float launchSpeed);
+	void AimAt(FVector);
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
 
 protected:
+
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Reloading;
 	
 private:
-	void MoveBarrelTowards(FVector AimDirection);
+
 	UTankAimingComponent();
+	void MoveBarrelTowards(FVector AimDirection);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 4000.0f;
 
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float ReloadTimeInSeconds = 3;
+
+	double LastFireTime = 0;
 };

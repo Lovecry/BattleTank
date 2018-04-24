@@ -2,10 +2,11 @@
 
 #pragma once
 
+#include "TankAimingComponent.h"
+
 #include "Engine/World.h"
-#include "Tank.h"
-#include "CoreMinimal.h"
 #include "AIController.h"
+#include "CoreMinimal.h"
 #include "TankAIController.generated.h"
 
 UCLASS()
