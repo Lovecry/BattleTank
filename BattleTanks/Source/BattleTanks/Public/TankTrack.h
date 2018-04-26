@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/World.h"
 #include "TankTrack.generated.h"
 
 /**
@@ -21,5 +22,16 @@ public :
 	//Max force per track in newton
 	UPROPERTY(EditDefaultsOnly)
 		float TrackMaxDrivingForce = 400000.f;
-	
+private :
+
+	UTankTrack();
+	virtual void BeginPlay() override;
+
+	void ApplySidewaysForce();
+	void DriveTrack();
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	float CurrentThrottle = 0;
 };
