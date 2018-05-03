@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Public/IDamagebleActor.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
@@ -9,7 +11,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
 
 UCLASS()
-class BATTLETANKS_API ATank : public APawn
+class BATTLETANKS_API ATank : public APawn , public IIDamagebleActor
 {
 	GENERATED_BODY()
 
@@ -18,15 +20,18 @@ public:
 
 	FTankDelegate OnDeath;
 
-	UFUNCTION(BlueprintPure, Category = "Health")
-	float GetHealthPercent() const { return (float)CurrentHealth / (float)StartingHealth; };
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Health")
+		float GetHealthPercent();
+		virtual float GetHealthPercent_Implementation() override;
 
 private:
 	ATank();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
 	int32 StartingHealth = 100.0f;
 
-	UPROPERTY(VisibleAnywhere, Category = "Setup")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Setup")
 	int32 CurrentHealth = 100.0f;
 };
