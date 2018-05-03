@@ -3,6 +3,7 @@
 #pragma once
 
 #include "TankAimingComponent.h"
+#include "Tank.h"
 
 #include "Engine/World.h"
 #include "AIController.h"
@@ -18,6 +19,10 @@ private:
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	virtual void SetPawn(APawn* InPawn);
+
+	UFUNCTION()
+	void OnTankDeath();
 
 protected:
 

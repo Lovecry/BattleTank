@@ -3,6 +3,7 @@
 #pragma once
 
 #include "TankAimingComponent.h"
+#include "Tank.h"
 
 #include "Engine/World.h"
 #include "CoreMinimal.h"
@@ -21,6 +22,8 @@ protected :
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 		
+	void SetPawn(APawn* InPawn) override;
+
 private:
 
 	UPROPERTY(EditDefaultsOnly)
@@ -37,4 +40,7 @@ private:
 	bool GetSightRayHitLocation(FVector&) const;
 	bool GetLookDirection(FVector2D , FVector &) const;
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
+
+	UFUNCTION()
+	void OnTankDeath();
 };

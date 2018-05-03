@@ -2,6 +2,19 @@
 
 #include "TankPlayerController.h"
 
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto ControlledTank = Cast<ATank>(InPawn);
+		if (ControlledTank)
+		{
+			ControlledTank->OnDeath.AddDynamic(this, &ATankPlayerController::OnTankDeath);
+		}
+	}
+}
+
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -9,7 +22,6 @@ void ATankPlayerController::BeginPlay()
 	if (!ensure(AimingComponent)) { return; }
 	
 	FoundAimingComponent(AimingComponent);
-	
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -65,4 +77,9 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	}
 
 	return false;
+}
+
+void ATankPlayerController::OnTankDeath()
+{
+	UE_LOG(LogTemp, Warning, TEXT("TANK DEAD : Player Controller"))
 }
